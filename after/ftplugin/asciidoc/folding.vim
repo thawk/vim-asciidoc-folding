@@ -71,7 +71,7 @@ endfunction
 
 function! s:FoldText()
   let level = HeadingDepth(v:foldstart)
-  let indent = repeat('=', level)
+  let indent = repeat('=', level + 1)
   let title = substitute(getline(v:foldstart), '^=\+\s*', '', '')
   let foldsize = (v:foldend - v:foldstart)
   let linecount = '['.foldsize.' line'.(foldsize>1?'s':'').']'
