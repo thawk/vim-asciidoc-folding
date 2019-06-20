@@ -9,7 +9,7 @@
 
 " Fold expressions {{{1
 function! StackedAsciidocFolds()
-  if HeadingDepth(v:lnum) > 0
+  if s:HeadingDepth(v:lnum) > 0
     return ">1"
   else
     return "="
@@ -17,7 +17,7 @@ function! StackedAsciidocFolds()
 endfunction
 
 function! NestedAsciidocFolds()
-  let depth = HeadingDepth(v:lnum)
+  let depth = s:HeadingDepth(v:lnum)
   if depth > 0
     return ">".depth
   else
@@ -30,7 +30,7 @@ function! s:SID()
   return matchstr(expand('<sfile>'), '<SNR>\d\+_')
 endfunction
 
-function! HeadingDepth(lnum)
+function! s:HeadingDepth(lnum)
   " 5 ='s is deepest section level, according to `asciidoc --help syntax`.
   " Only 1 = is the document header, which isn't really worth folding, so we
   " ignore it and subtract one off the count to get the fold level.
@@ -70,7 +70,7 @@ endfunction
 
 
 function! s:FoldText()
-  let level = HeadingDepth(v:foldstart)
+  let level = s:HeadingDepth(v:foldstart)
   let indent = repeat('=', level + 1)
   let title = substitute(getline(v:foldstart), '^=\+\s*', '', '')
   let foldsize = (v:foldend - v:foldstart)
